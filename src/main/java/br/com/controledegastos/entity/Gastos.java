@@ -12,6 +12,7 @@ import java.util.Date;
  * @author vinicius
  */
 public class Gastos {
+    private int id;
     private String descricao;
     private Date data;
     private double valor;
@@ -47,6 +48,14 @@ public class Gastos {
 
     public void setTipoGasto(String tipoGasto) {
         this.tipoGasto = tipoGasto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

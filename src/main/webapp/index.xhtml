@@ -27,45 +27,40 @@
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Text Input</label>  
+                        <label class="col-md-4 control-label" for="descrico">Descrição</label>  
                         <div class="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md"/>
-                            <span class="help-block">help</span>  
+                            <h:inputText value="#{gastosMB.gas.descricao}" id="descricao" class="form-control input-md"/>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Text Input</label>  
+                        <label class="col-md-4 control-label" for="data">Data</label>  
                         <div class="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md"/>
-                            <span class="help-block">help</span>  
+                            <h:inputText  id="data" class="form-control input-md"/>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Text Input</label>  
+                        <label class="col-md-4 control-label" for="valor">Valor</label>  
                         <div class="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md"/>
-                            <span class="help-block">help</span>  
+                            <h:inputText value="#{gastosMB.gas.valor}" id="valor" class="form-control input-md"/>
                         </div>
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinput">Text Input</label>  
+                        <label class="col-md-4 control-label" for="tipoGasto">Tipo de Gasto</label>  
                         <div class="col-md-4">
-                            <input id="textinput" name="textinput" type="text" placeholder="placeholder" class="form-control input-md"/>
-                            <span class="help-block">help</span>  
+                            <h:inputText value="#{gastosMB.gas.tipoGasto}" id="tipoGasto" class="form-control input-md"/>
                         </div>
                     </div>
 
                     <!-- Button -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="singlebutton">Single Button</label>
                         <div class="col-md-4">
-                            <button id="singlebutton" name="singlebutton" class="btn btn-primary">Button</button>
+                            <h:commandButton value="Cadastrar" action="#{gastosMB.salvar()}" id="singlebutton" class="btn btn-primary"/>
                         </div>
                     </div>
                 </div>

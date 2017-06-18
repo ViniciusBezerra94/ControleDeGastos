@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="data">Data</label>  
                         <div class="col-md-4">
-                            <h:inputText  id="data" class="form-control input-md"/>
+                            <h:inputText value="#{gastosMB.dataGasto}"  id="data" class="form-control input-md"/>
                         </div>
                     </div>
 
@@ -74,12 +74,12 @@
 
         <h:form id="formTabela">
             <div class="container">
-                <h:dataTable  styleClass="table table-striped"  value="#{gastosMB.gastos}" var="gasto">
+                <h:dataTable  styleClass=" table table-striped"  value="#{gastosMB.gastos}" var="gasto">
                     <h:column >
                         <!-- column header -->
                         <f:facet name="header">Descricao</f:facet>
                         <!-- row record -->
-                        <h:outputText styleClass="background-color:red" value="#{gasto.descricao}" />
+                        <h:outputText  value="#{gasto.descricao}" />
                     </h:column>
 
                     <h:column >
@@ -94,13 +94,24 @@
 
                     <h:column>
                         <f:facet name="header">Data</f:facet>
-                        <h:outputText value="#{gasto.data}"/>
+                        <h:outputText value="#{gastosMB.formatarData(gasto.data)}"/>
+                    </h:column>
+                    <h:column>
+                        <h:commandButton class="btn-sm btn-primary" value="Editar" action="#{gastosMB.editar(gasto)}" />
+                    </h:column>
+                    <h:column>
+                        <h:commandButton class="btn-sm btn-danger " value="Remover" action="#{gastosMB.remover(gasto)}" />
                     </h:column>
 
                 </h:dataTable>
 
             </div>
         </h:form>
+        <div class="col-md-11">
+            <label class="control-label" >Total: </label>  
+    
+            <h:outputText value="#{gastosMB.calcularTotal(gastosMB.gastos)}" id="total"/>
+        </div>
 
     </h:body>
 </html>

@@ -9,6 +9,7 @@ import br.com.controledegastos.ejb.GastosBean;
 import br.com.controledegastos.ejb.GastosRemote;
 import br.com.controledegastos.entity.Gastos;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -29,6 +30,8 @@ public class GastosMB implements Serializable {
     @EJB
     private GastosRemote ejb = new GastosBean();
     private List<Gastos> gastos;
+    
+    String dataGasto = "";
 
     /**
      * Creates a new instance of GastosMB
@@ -56,14 +59,15 @@ public class GastosMB implements Serializable {
 
     public void salvar() throws Exception {
         try {
-
-            gas.setData(new Date());
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            gas.setData(formato.parse(dataGasto));
             System.out.println("gas:" + gas);
 
             gas = ejb.salvar(gas);
             if (gas.getId() != null) {
                 System.out.println("gastos salvo com sucesso");
                 gas = new Gastos();
+                dataGasto = "";
 
             } else {
                 System.out.println("gastos não salvos");
@@ -82,6 +86,45 @@ public class GastosMB implements Serializable {
         this.gastos = gastos;
     }
     
+    
+    public void editar(Gastos gasto){
+        gas = gasto;
+    }
+
+    public String getDataGasto() {
+        return dataGasto;
+    }
+
+    public void setDataGasto(String dataGasto) {
+        this.dataGasto = dataGasto;
+    }
+    
+    
+    
+    
+    public void remover(Gastos gasto){
+        ejb.remover(gasto.getId());
+    }
+    
+    public double retornarSomaDespesas(List<Gastos> g , String despesa){
+        double total = 0;
+        for(int i =0; i < g.size(); i++){
+            if(g.get(i).getTipoGasto().equalsIgnoreCase(despesa)){
+                total = total + g.get(i).getValor();
+            }
+        }
+        return total;
+    }
+    
+    public String calcularTotal(List<Gastos>g){
+        return "" + (retornarSomaDespesas(g, "receita") - retornarSomaDespesas(g, "despesa"));
+    }
+    
+    
+    public String formatarData(Date d){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(d);
+    }
     
     
 

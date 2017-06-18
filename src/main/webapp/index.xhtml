@@ -71,48 +71,66 @@
 
             </div>
         </h:form>
-
-        <h:form id="formTabela">
-            <div class="container">
-                <h:dataTable  styleClass=" table table-striped"  value="#{gastosMB.gastos}" var="gasto">
-                    <h:column >
-                        <!-- column header -->
-                        <f:facet name="header">Descricao</f:facet>
-                        <!-- row record -->
-                        <h:outputText  value="#{gasto.descricao}" />
-                    </h:column>
-
-                    <h:column >
-                        <f:facet name="header">Valor</f:facet>
-                        <h:outputText   value="#{gasto.valor}"/>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Tipo de Gasto</f:facet>
-                        <h:outputText value="#{gasto.tipoGasto}"/>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Data</f:facet>
-                        <h:outputText value="#{gastosMB.formatarData(gasto.data)}"/>
-                    </h:column>
-                    <h:column>
-                        <h:commandButton class="btn-sm btn-primary" value="Editar" action="#{gastosMB.editar(gasto)}" />
-                    </h:column>
-                    <h:column>
-                        <h:commandButton class="btn-sm btn-danger " value="Remover" action="#{gastosMB.remover(gasto)}" />
-                    </h:column>
-
-                </h:dataTable>
-
+        <h:form>
+            <h:outputLabel value="Data: "></h:outputLabel>
+            <div class="col-md-4">
+                <h:inputText value="#{gastosMB.dataIni}" id="descricao" class="form-control input-md"/>
             </div>
-        </h:form>
-        <div class="col-md-11">
-            <label class="control-label" >Total: </label>  
-    
-            <h:outputText value="#{gastosMB.calcularTotal(gastosMB.gastos)}" id="total"/>
-        </div>
 
-    </h:body>
+
+
+            <div class="col-md-4">
+                <h:inputText value="#{gastosMB.dataFim}"  id="data" class="form-control input-md"/>
+            </div>
+
+
+            <h:commandButton value="buscar" class="btn-sm btn-primary" action="#{gastosMB.buscarEntreDatas()}"/>
+
+    </h:form>
+
+
+
+    <h:form id="formTabela">
+        <div class="container">
+            <h:dataTable  styleClass=" table table-striped"  value="#{gastosMB.gastos}" var="gasto">
+                <h:column >
+                    <!-- column header -->
+                    <f:facet name="header">Descricao</f:facet>
+                    <!-- row record -->
+                    <h:outputText  value="#{gasto.descricao}" />
+                </h:column>
+
+                <h:column >
+                    <f:facet name="header">Valor</f:facet>
+                    <h:outputText   value="#{gasto.valor}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Tipo de Gasto</f:facet>
+                    <h:outputText value="#{gasto.tipoGasto}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Data</f:facet>
+                    <h:outputText value="#{gastosMB.formatarData(gasto.data)}"/>
+                </h:column>
+                <h:column>
+                    <h:commandButton class="btn-sm btn-primary" value="Editar" action="#{gastosMB.editar(gasto)}" />
+                </h:column>
+                <h:column>
+                    <h:commandButton class="btn-sm btn-danger " value="Remover" action="#{gastosMB.remover(gasto)}" />
+                </h:column>
+
+            </h:dataTable>
+
+        </div>
+    </h:form>
+    <div class="col-md-11">
+        <label class="control-label" >Total: </label>  
+
+        <h:outputText value="#{gastosMB.calcularTotal(gastosMB.gastos)}" id="total"/>
+    </div>
+
+</h:body>
 </html>
 

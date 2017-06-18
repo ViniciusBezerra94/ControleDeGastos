@@ -30,8 +30,11 @@ public class GastosMB implements Serializable {
     @EJB
     private GastosRemote ejb = new GastosBean();
     private List<Gastos> gastos;
-    
+
     String dataGasto = "";
+
+    String dataIni = "";
+    String dataFim = "";
 
     /**
      * Creates a new instance of GastosMB
@@ -85,11 +88,6 @@ public class GastosMB implements Serializable {
     public void setGastos(List<Gastos> gastos) {
         this.gastos = gastos;
     }
-    
-    
-    public void editar(Gastos gasto){
-        gas = gasto;
-    }
 
     public String getDataGasto() {
         return dataGasto;
@@ -98,34 +96,62 @@ public class GastosMB implements Serializable {
     public void setDataGasto(String dataGasto) {
         this.dataGasto = dataGasto;
     }
-    
-    
-    
-    
-    public void remover(Gastos gasto){
+
+    public String getDataIni() {
+        return dataIni;
+    }
+
+    public void setDataIni(String dataIni) {
+        this.dataIni = dataIni;
+    }
+
+    public String getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(String dataFim) {
+        this.dataFim = dataFim;
+    }
+
+
+
+    public void buscarEntreDatas() {
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            Date data1 = formato.parse(dataIni);
+            Date data2 = formato.parse(dataFim);
+            gastos = ejb.buscarEntreDatas(data1, data2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editar(Gastos gasto) {
+        gas = gasto;
+        dataGasto = formatarData(gasto.getData());
+    }
+
+    public void remover(Gastos gasto) {
         ejb.remover(gasto.getId());
     }
-    
-    public double retornarSomaDespesas(List<Gastos> g , String despesa){
+
+    public double retornarSomaDespesas(List<Gastos> g, String despesa) {
         double total = 0;
-        for(int i =0; i < g.size(); i++){
-            if(g.get(i).getTipoGasto().equalsIgnoreCase(despesa)){
+        for (int i = 0; i < g.size(); i++) {
+            if (g.get(i).getTipoGasto().equalsIgnoreCase(despesa)) {
                 total = total + g.get(i).getValor();
             }
         }
         return total;
     }
-    
-    public String calcularTotal(List<Gastos>g){
+
+    public String calcularTotal(List<Gastos> g) {
         return "" + (retornarSomaDespesas(g, "receita") - retornarSomaDespesas(g, "despesa"));
     }
-    
-    
-    public String formatarData(Date d){
+
+    public String formatarData(Date d) {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.format(d);
     }
-    
-    
 
 }

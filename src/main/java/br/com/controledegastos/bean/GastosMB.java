@@ -5,12 +5,12 @@
  */
 package br.com.controledegastos.bean;
 
-
 import br.com.controledegastos.ejb.GastosBean;
 import br.com.controledegastos.ejb.GastosRemote;
 import br.com.controledegastos.entity.Gastos;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,23 +22,28 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class GastosMB implements Serializable{
-    
+public class GastosMB implements Serializable {
+
     private Gastos gas = new Gastos();
-   
+
     @EJB
-    private GastosRemote ejb = new GastosBean(); 
-    
+    private GastosRemote ejb = new GastosBean();
+    private List<Gastos> gastos;
+
     /**
      * Creates a new instance of GastosMB
      */
     public GastosMB() {
 
     }
-    
+
     @PostConstruct
-    public void init(){
-        
+    public void init() {
+        try {
+            gastos = ejb.buscarTodosGastos();
+        } catch (Exception e) {
+
+        }
     }
 
     public Gastos getGas() {
@@ -48,30 +53,36 @@ public class GastosMB implements Serializable{
     public void setGas(Gastos gas) {
         this.gas = gas;
     }
-    
-    
-    public void salvar() throws Exception{
-        try{
 
-        
-        gas.setData(new Date());
-        System.out.println("gas:" + gas);
+    public void salvar() throws Exception {
+        try {
 
-        gas = ejb.salvar(gas);
-        if(gas.getId() != null){
-            System.out.println("gastos salvo com sucesso");
-            gas = new Gastos();
-            
-        }else{
-            System.out.println("gastos não salvos");
-        }
-        }catch(Exception e ){
+            gas.setData(new Date());
+            System.out.println("gas:" + gas);
+
+            gas = ejb.salvar(gas);
+            if (gas.getId() != null) {
+                System.out.println("gastos salvo com sucesso");
+                gas = new Gastos();
+
+            } else {
+                System.out.println("gastos não salvos");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
+    }
+
+    public List<Gastos> getGastos() {
+        return gastos;
+    }
+
+    public void setGastos(List<Gastos> gastos) {
+        this.gastos = gastos;
     }
     
     
     
-    
+
 }

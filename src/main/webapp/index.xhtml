@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>ControleWeb</title>
         <meta http-equiv="Cache-Control" content="no-cache" />
@@ -16,9 +18,11 @@
         <script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.maskedinput.js"></script>
         <script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.validate.js"></script>
         <script type="text/javascript" src="#{request.contextPath}/resources/js/bootbox.min.js"></script>
-        <script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.funcao.js"></script> 
         <script type="text/javascript" src="#{request.contextPath}/resources/js/validacao.js"></script> 
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.12.1.min.js"></script> 
+
     </h:head>
+
     <h:body>
         <h:form class="form-horizontal">
             <div class="panel panel-default">
@@ -64,8 +68,40 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </h:form>
+
+        <h:form id="formTabela">
+            <div class="container">
+                <h:dataTable  styleClass="table table-striped"  value="#{gastosMB.gastos}" var="gasto">
+                    <h:column >
+                        <!-- column header -->
+                        <f:facet name="header">Descricao</f:facet>
+                        <!-- row record -->
+                        <h:outputText styleClass="background-color:red" value="#{gasto.descricao}" />
+                    </h:column>
+
+                    <h:column >
+                        <f:facet name="header">Valor</f:facet>
+                        <h:outputText   value="#{gasto.valor}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Tipo de Gasto</f:facet>
+                        <h:outputText value="#{gasto.tipoGasto}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Data</f:facet>
+                        <h:outputText value="#{gasto.data}"/>
+                    </h:column>
+
+                </h:dataTable>
+
+            </div>
+        </h:form>
+
     </h:body>
 </html>
 
